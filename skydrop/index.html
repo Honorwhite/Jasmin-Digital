@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SkyDrop | Modern P2P File Sharing</title>
+    <meta name="description" content="Share files instantly with devices on your local network. No setup required.">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="background-grid"></div>
+    <div class="glow"></div>
+
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i data-lucide="send" class="icon-logo"></i>
+                <h1>SkyDrop</h1>
+            </div>
+            <div class="header-right">
+                <button id="btn-theme" class="btn-icon" title="Toggle Theme">
+                    <i data-lucide="moon"></i>
+                </button>
+                <button id="btn-lang" class="lang-btn">TR</button>
+                <button id="btn-refresh" class="btn-icon" title="Refresh Discovery">
+                    <i data-lucide="refresh-cw"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div id="status" class="status-badge" data-i18n="connecting"></div>
+            <h2 data-i18n="hero-title"></h2>
+            <p data-i18n="hero-subtitle"></p>
+        </section>
+
+        <main id="discovery" class="peer-grid">
+            <!-- Peers will be injected here -->
+            <div id="empty-state" class="empty-state">
+                <div class="loader-container">
+                    <div class="loader"></div>
+                </div>
+                <p data-i18n="looking-devices"></p>
+                <small data-i18n="open-another"></small>
+            </div>
+        </main>
+
+        <footer>
+            <div class="local-peer">
+                <i data-lucide="monitor"></i>
+                <span id="local-peer-name" data-i18n="detecting"></span>
+            </div>
+            <div class="toggle-group" title="Auto-Download">
+                <span class="toggle-label" data-i18n="auto-download">Auto-Download</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-auto-accept">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal for File Acceptance -->
+    <div id="modal-container" class="modal-overlay hidden">
+        <div class="glass-modal">
+            <h3 id="modal-title" data-i18n="incoming-file">Incoming File</h3>
+            <p id="modal-message">User wants to send "file.pdf" (1.2 MB)</p>
+            <div class="modal-actions">
+                <button id="btn-decline" class="btn btn-secondary" data-i18n="decline">Decline</button>
+                <button id="btn-accept" class="btn btn-primary" data-i18n="accept">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div id="progress-container" class="progress-overlay hidden">
+        <div class="glass-modal">
+            <h3 id="progress-title" data-i18n="sending-file">Sending File...</h3>
+            <p id="progress-filename" class="progress-filename"></p>
+            <div id="progress-detail-container">
+                <div class="progress-bar-bg">
+                    <div id="progress-bar" class="progress-bar-fill"></div>
+                </div>
+                <p id="progress-text">0%</p>
+                <p id="progress-eta" class="progress-eta"></p>
+            </div>
+            <div class="modal-actions">
+                <button id="btn-cancel-transfer" class="btn btn-secondary" data-i18n="cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
